@@ -28,7 +28,7 @@ namespace CadastroDocumentos.Models
         [Arquivo(ErrorMessage = "Apenas as extensões [PDF, DOC, XLS, DOCX e XLSX]")]
         public HttpPostedFileBase Arquivo { get; set; }
 
-        public string ArquivoURL { get; set; }
+        public string ArquivoNome { get; set; }
         
     }
 }
