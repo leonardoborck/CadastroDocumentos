@@ -16,6 +16,7 @@ namespace CadastroDocumentos.Migrations
                         Titulo = c.String(nullable: false, unicode: false),
                         Processo = c.String(nullable: false, unicode: false),
                         Categoria = c.String(nullable: false, unicode: false),
+                        ArquivoURL = c.String(unicode: false),
                     })
                 .PrimaryKey(t => t.Id);
             

@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
+using System.Web;
 
 namespace CadastroDocumentos.Models
 {
@@ -8,18 +8,25 @@ namespace CadastroDocumentos.Models
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Informe o código")]
-        [RegularExpression(@"[0-9]")]
+        //criar função
+        //[Remote("CodigoUnico", "Documento", ErrorMessage = "Ja existe um documento com esse código")]
+        [Required(ErrorMessage = "O código é Obrigatório")]
         public int Codigo { get; set; }
-        [Required(ErrorMessage = "Informe o título")]
+
+        [Required(ErrorMessage = "O título é Obrigatório")]
         public string Titulo { get; set; }
-        [Required(ErrorMessage = "Informe o processo")]
+
+        [Required(ErrorMessage = "O processo é Obrigatório")]
         public string Processo { get; set; }
-        [Required(ErrorMessage = "Informe a categoria")]
+
+        [Required(ErrorMessage = "A categoria é Obrigatório")]
         public string Categoria { get; set; }
-        [Required(ErrorMessage = "Insira o arquivo")]
-        [RegularExpression(@"^.*\.(pdf | PDF | doc | DOC | docx | DOCX | xls | XLS |xlsx|XLSX)$", ErrorMessage ="Apenas formatos (DOC|DOCX|PDF|XLS|XLSX)")]
-        public IFormFile Arquivo{get;set;}
+
+        [Required(ErrorMessage = "O arquivo é Obrigatório")]
+        //[RegularExpression(@"^.*\.(xls|XLS|xlsx|XLSX|doc|DOC|docx|DOCX|pdf|PDF)$", ErrorMessage = "Apenas as extensões [PDF, DOC, XLS, DOCX e XLSX]")]
+        public HttpPostedFileBase Arquivo { get; set; }
+
+        public string ArquivoURL { get; set; }
         
     }
 }
