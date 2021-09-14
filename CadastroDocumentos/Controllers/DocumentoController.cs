@@ -15,20 +15,18 @@ namespace CadastroDocumentos.Controllers
     {
         private Contexto db = new Contexto();
 
-        /*        // GET: Documento
-                public ActionResult Index()
-                {
-                    return View(db.Documento.ToList().OrderBy(x => x.Titulo));
-                }*/
-
-        // GET: Documento/Create
-
         public ActionResult Index()
+        {
+            return View(db.Documento.ToList().OrderBy(x => x.Titulo));
+        }
+
+        public ActionResult Create()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Index(Documento arq)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Codigo,Titulo,Processo,Categoria,ArquivoURL,Arquivo")] Documento arq)
         {
             if (ModelState.IsValid)
             {
@@ -46,48 +44,12 @@ namespace CadastroDocumentos.Controllers
                         db.Documento.Add(arq);
                         db.SaveChanges();
                     }
-                    catch (Exception ex)
+                    catch (Exception e)
                     {
-                        ViewBag.Mensagem = "Erro : " + ex.Message;
+                        ViewBag.Mensagem = "Erro : " + e.Message;
                     }
                 }
             return View(arq);
-        }
-
-      /*  public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Documento/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Codigo,Titulo,Processo,Categoria,ArquivoURL")] Documento documento)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    string nomeArquivo = "";
-                    if (documento.Arquivo.ContentLength > 0)
-                    {
-                        nomeArquivo = Path.GetFileName(documento.Arquivo.FileName);
-                        var caminho = Path.Combine(Server.MapPath("~/Imagens"), nomeArquivo);
-                        documento.Arquivo.SaveAs(caminho);
-                        documento.ArquivoURL = caminho;
-                    }
-                    ViewBag.Mensagem = "Arquivo : " + nomeArquivo + " , enviado com sucesso.";
-                    db.Documento.Add(documento);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch (Exception ex)
-                {
-                    ViewBag.Mensagem = "Erro : " + ex.Message;
-                }
-            }
-
-            return View(documento);
         }
         protected override void Dispose(bool disposing)
         {
@@ -96,6 +58,6 @@ namespace CadastroDocumentos.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }*/
+        }
     }
 }

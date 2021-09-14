@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Web;
 
 namespace CadastroDocumentos.Models
@@ -23,7 +24,8 @@ namespace CadastroDocumentos.Models
         public string Categoria { get; set; }
 
         [Required(ErrorMessage = "O arquivo é Obrigatório")]
-        //[RegularExpression(@"^.*\.(xls|XLS|xlsx|XLSX|doc|DOC|docx|DOCX|pdf|PDF)$", ErrorMessage = "Apenas as extensões [PDF, DOC, XLS, DOCX e XLSX]")]
+        [NotMapped]
+        [Arquivo(ErrorMessage = "Apenas as extensões [PDF, DOC, XLS, DOCX e XLSX]")]
         public HttpPostedFileBase Arquivo { get; set; }
 
         public string ArquivoURL { get; set; }
