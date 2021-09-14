@@ -40,7 +40,7 @@ namespace CadastroDocumentos.Controllers
                         ViewBag.Mensagem = "Arquivo : " + nomeArquivo + " , enviado com sucesso.";
                         db.Documento.Add(arq);
                         db.SaveChanges();
-                        return RedirectToAction("Index");
+                        //return RedirectToAction("Index");
                 }
                     catch (Exception e)
                     {
