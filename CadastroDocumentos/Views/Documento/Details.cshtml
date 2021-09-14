@@ -1,12 +1,8 @@
 ﻿@model CadastroDocumentos.Models.Documento
 
-@{
-    ViewBag.Title = "Details";
-}
+<h2>Detalhes</h2>
 
-<h2>Details</h2>
 <div>
-    <h4>Documento</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -46,6 +42,8 @@
         </dt>
         <dd>
             <a class="btn btn-primary mb-3" href="~/Arquivos/@Html.DisplayFor(model => model.ArquivoNome)"><span class="glyphicon glyphicon-download-alt"></span></a>
+        </dd>
+        <dd>    
             <embed src="~/Arquivos/@Html.DisplayFor(model => model.ArquivoNome)" width="800px" height="500px" />
         </dd>
 
