@@ -1,13 +1,9 @@
 ﻿@model IEnumerable<CadastroDocumentos.Models.Documento>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
+<h2>Listagem</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Cadastrar Novo", "Cadastrar")
 </p>
 <table class="table">
     <tr>
@@ -26,9 +22,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Arquivo)
         </th>
-        <th></th>
     </tr>
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
 <tr>
     <td>
         @Html.DisplayFor(modelItem => item.Codigo)
@@ -42,10 +38,8 @@
     <td>
         @Html.DisplayFor(modelItem => item.Categoria)
     </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Arquivo, new { htmlAttributes = new { @type = "file" } })
-    </td>
+    <td>@Html.ActionLink("Acessar", "AcessarArquivo", new { id = item.Id })</td>
 </tr>
-}
+    }
 
 </table>

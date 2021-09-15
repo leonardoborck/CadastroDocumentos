@@ -157,19 +157,20 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Attributes\ArquivoAttribute.cs" />
     <Compile Include="Controllers\DocumentoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202109131608487_InitialMigration.cs" />
-    <Compile Include="Migrations\202109131608487_InitialMigration.Designer.cs">
-      <DependentUpon>202109131608487_InitialMigration.cs</DependentUpon>
+    <Compile Include="Contexto\Contexto.cs" />
+    <Compile Include="Migrations\202109142140286_InitialMigration.cs" />
+    <Compile Include="Migrations\202109142140286_InitialMigration.Designer.cs">
+      <DependentUpon>202109142140286_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Contexto.cs" />
     <Compile Include="Models\Documento.cs" />
-    <Compile Include="Models\MySqlComMigration.cs" />
-    <Compile Include="Models\MySqlHistoryContext.cs" />
+    <Compile Include="Contexto\MySqlComMigration.cs" />
+    <Compile Include="Contexto\MySqlHistoryContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -205,11 +206,13 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Documento\Create.cshtml" />
-    <Content Include="Views\Documento\Index.cshtml" />
+    <Content Include="Views\Documento\Cadastrar.cshtml" />
+    <Content Include="Views\Documento\Listar.cshtml" />
+    <Content Include="Views\Documento\AcessarArquivo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Arquivos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -225,8 +228,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202109131608487_InitialMigration.resx">
-      <DependentUpon>202109131608487_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202109142140286_InitialMigration.resx">
+      <DependentUpon>202109142140286_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
