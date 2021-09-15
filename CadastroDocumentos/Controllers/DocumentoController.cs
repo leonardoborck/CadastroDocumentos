@@ -14,7 +14,7 @@ namespace CadastroDocumentos.Controllers
 
         //pagina inicial
         //retorna lista documento que foram enviados e ordena pelo titulo em ordem alfabetica
-        public ActionResult Listar() 
+        public ActionResult Listar()
         {
             return View(db.Documento.ToList().OrderBy(x => x.Titulo));
         }
@@ -30,25 +30,25 @@ namespace CadastroDocumentos.Controllers
         {
             if (ModelState.IsValid) //apenas se todas condicoes do formulario estiverem ok
             {
-                    try //tenta enviar o arquivo para o servidor e salvar o nome no bd
+                try //tenta enviar o arquivo para o servidor e salvar o nome no bd
+                {
+                    string nomeArquivo = "";
+                    if (documento.Arquivo.ContentLength > 0) //verifica se o tamanho do arquivo nao e nulo
                     {
-                        string nomeArquivo = "";
-                        if (documento.Arquivo.ContentLength > 0) //verifica se o tamanho do arquivo nao e nulo
-                        {
-                            nomeArquivo = Path.GetFileName(documento.Arquivo.FileName);
-                            var caminho = Path.Combine(Server.MapPath("~/Arquivos"), nomeArquivo);
+                        nomeArquivo = Path.GetFileName(documento.Arquivo.FileName);
+                        var caminho = Path.Combine(Server.MapPath("~/Arquivos"), nomeArquivo);
                         documento.Arquivo.SaveAs(caminho); //salva o arquivo no caminho do servidor
                         documento.ArquivoNome = Path.Combine(nomeArquivo); //guarda o nome do arquivo no bd
-                        }
-                        ViewBag.Mensagem = "Cadastro efetuado com sucesso.";
-                        db.Documento.Add(documento); //cria um novo item no bd
-                        db.SaveChanges();
-                }
-                    catch (Exception e)
-                    {
-                        ViewBag.Mensagem = "Erro : " + e.Message;
                     }
+                    ViewBag.Mensagem = "Cadastro efetuado com sucesso.";
+                    db.Documento.Add(documento); //cria um novo item no bd
+                    db.SaveChanges();
                 }
+                catch (Exception e)
+                {
+                    ViewBag.Mensagem = "Erro : " + e.Message;
+                }
+            }
             return View(documento);
         }
 

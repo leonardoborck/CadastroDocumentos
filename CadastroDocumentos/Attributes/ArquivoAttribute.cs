@@ -7,7 +7,7 @@ public class ArquivoAttribute : RequiredAttribute
     public override bool IsValid(object value)
     {
         //verifica se o arquivo foi enviado
-        var file = value as HttpPostedFileBase; 
+        var file = value as HttpPostedFileBase;
         if (file == null)
         {
             return false;

@@ -34,6 +34,6 @@ namespace CadastroDocumentos.Models
         public HttpPostedFileBase Arquivo { get; set; }
 
         public string ArquivoNome { get; set; }
-        
+
     }
 }

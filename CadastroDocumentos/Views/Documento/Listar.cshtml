@@ -25,21 +25,21 @@
     </tr>
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Codigo)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Titulo)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Processo)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Categoria)
-    </td>
-    <td>@Html.ActionLink("Acessar", "AcessarArquivo", new { id = item.Id })</td>
-</tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Processo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria)
+            </td>
+            <td>@Html.ActionLink("Acessar", "AcessarArquivo", new { id = item.Id })</td>
+        </tr>
     }
 
 </table>
