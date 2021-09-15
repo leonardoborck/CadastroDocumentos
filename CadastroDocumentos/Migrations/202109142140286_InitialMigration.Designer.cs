@@ -13,7 +13,7 @@ namespace CadastroDocumentos.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202109141627279_InitialMigration"; }
+            get { return "202109142140286_InitialMigration"; }
         }
         
         string IMigrationMetadata.Source

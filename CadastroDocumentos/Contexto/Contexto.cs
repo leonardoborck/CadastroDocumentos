@@ -4,8 +4,7 @@ namespace CadastroDocumentos.Models
 {
     public class Contexto : DbContext
     {
-        public Contexto()
-                     : base("Contexto")
+        public Contexto(): base("Contexto")
         {
 
         }

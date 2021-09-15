@@ -10,67 +10,71 @@ namespace CadastroDocumentos.Controllers
 {
     public class DocumentoController : Controller
     {
-        private Contexto db = new Contexto();
+        private readonly Contexto db = new Contexto();
 
-        public ActionResult Index()
+        //pagina inicial
+        //retorna lista documento que foram enviados e ordena pelo titulo em ordem alfabetica
+        public ActionResult Listar() 
         {
             return View(db.Documento.ToList().OrderBy(x => x.Titulo));
         }
 
-        public ActionResult Create()
+        public ActionResult Cadastrar()
         {
             return View();
         }
-        [HttpPost]
+
+        [HttpPost] // quando for utilizado metodo post
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Codigo,Titulo,Processo,Categoria,ArquivoURL,Arquivo")] Documento arq)
+        public ActionResult Cadastrar([Bind(Include = "Id,Codigo,Titulo,Processo,Categoria,ArquivoURL,Arquivo")] Documento documento)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) //apenas se todas condicoes do formulario estiverem ok
             {
-                    try
+                    try //tenta enviar o arquivo para o servidor e salvar o nome no bd
                     {
                         string nomeArquivo = "";
-                        if (arq.Arquivo.ContentLength > 0)
+                        if (documento.Arquivo.ContentLength > 0) //verifica se o tamanho do arquivo nao e nulo
                         {
-                            nomeArquivo = Path.GetFileName(arq.Arquivo.FileName);
+                            nomeArquivo = Path.GetFileName(documento.Arquivo.FileName);
                             var caminho = Path.Combine(Server.MapPath("~/Arquivos"), nomeArquivo);
-                            arq.Arquivo.SaveAs(caminho);
-                            arq.ArquivoNome = Path.Combine(nomeArquivo);
+                        documento.Arquivo.SaveAs(caminho); //salva o arquivo no caminho do servidor
+                        documento.ArquivoNome = Path.Combine(nomeArquivo); //guarda o nome do arquivo no bd
                         }
-                        ViewBag.Mensagem = "Arquivo : " + nomeArquivo + " , enviado com sucesso.";
-                        db.Documento.Add(arq);
+                        ViewBag.Mensagem = "Cadastro efetuado com sucesso.";
+                        db.Documento.Add(documento); //cria um novo item no bd
                         db.SaveChanges();
-                        //return RedirectToAction("Index");
                 }
                     catch (Exception e)
                     {
                         ViewBag.Mensagem = "Erro : " + e.Message;
                     }
                 }
-            return View(arq);
+            return View(documento);
         }
 
-        // GET: Contato/Details/5
-        public ActionResult Details(int? id)
+        //acessa um documento especifico
+        public ActionResult AcessarArquivo(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Documento documento = db.Documento.Find(id);
+            Documento documento = db.Documento.Find(id); //procura o documento no bd pelo id
             if (documento == null)
             {
                 return HttpNotFound();
             }
             return View(documento);
         }
-        protected override void Dispose(bool disposing)
+        //verificacao que garante que o codigo do documento seja unico
+        public ActionResult CodigoUnico(int codigo)
         {
-            if (disposing)
+            Documento documento = db.Documento.Find(codigo); //procura no banco de dados pelo codigo passado por parametro
+            if (documento == null) //se nao encontrar um item e retornar nulo o usuario podera inserir o codigo
             {
-                db.Dispose();
+                return Content("true");
             }
-            base.Dispose(disposing);
+            else return Content("false");
         }
     }
 }

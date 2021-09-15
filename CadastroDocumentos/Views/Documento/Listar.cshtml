@@ -3,7 +3,7 @@
 <h2>Listagem</h2>
 
 <p>
-    @Html.ActionLink("Criar Novo", "Create")
+    @Html.ActionLink("Cadastrar Novo", "Cadastrar")
 </p>
 <table class="table">
     <tr>
@@ -18,6 +18,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Categoria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Arquivo)
         </th>
     </tr>
     @foreach (var item in Model)
@@ -35,7 +38,7 @@
     <td>
         @Html.DisplayFor(modelItem => item.Categoria)
     </td>
-    <td>@Html.ActionLink("Detalhes", "Details", new { id = item.Id })</td>
+    <td>@Html.ActionLink("Acessar", "AcessarArquivo", new { id = item.Id })</td>
 </tr>
     }
 
