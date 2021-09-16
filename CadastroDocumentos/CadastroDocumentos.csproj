@@ -157,7 +157,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Attributes\ArquivoAttribute.cs" />
+    <Compile Include="Attributes\VerificarExtensoesPermitidasDoArquivoAttribute.cs" />
     <Compile Include="Controllers\DocumentoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
