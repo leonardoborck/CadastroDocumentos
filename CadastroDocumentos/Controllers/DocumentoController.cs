@@ -24,7 +24,7 @@ namespace CadastroDocumentos.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CadastrarNovoDocumento([Bind(Include = "Id,Codigo,Titulo,Processo,Categoria,ArquivoNome,Arquivo")] Documento documento)
+        public ActionResult CadastrarNovoDocumento(Documento documento)
         {
             if (ModelState.IsValid)
             {
