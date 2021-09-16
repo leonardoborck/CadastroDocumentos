@@ -12,31 +12,31 @@ namespace CadastroDocumentos.Controllers
     {
         private readonly Contexto bancoDeDados = new Contexto();
 
-        public ActionResult Listar()
+        public ActionResult ListarDocumentosCadastrados()
         {
             return View(bancoDeDados.Documento.ToList().OrderBy(x => x.Titulo));
         }
 
-        public ActionResult Cadastrar()
+        public ActionResult CadastrarNovoDocumento()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Cadastrar([Bind(Include = "Id,Codigo,Titulo,Processo,Categoria,ArquivoNome,Arquivo")] Documento documento)
+        public ActionResult CadastrarNovoDocumento([Bind(Include = "Id,Codigo,Titulo,Processo,Categoria,ArquivoNome,Arquivo")] Documento documento)
         {
             if (ModelState.IsValid)
             {
                 try 
                 {
-                    string nomeArquivo = "";
+                    string nomeDoArquivo = "";
                     if (documento.Arquivo.ContentLength > 0)
                     {
-                        nomeArquivo = Path.GetFileName(documento.Arquivo.FileName);
-                        var caminho = Path.Combine(Server.MapPath("~/Arquivos"), nomeArquivo);
-                        documento.Arquivo.SaveAs(caminho);
-                        documento.ArquivoNome = Path.Combine(nomeArquivo);
+                        nomeDoArquivo = Path.GetFileName(documento.Arquivo.FileName);
+                        var caminhoDoArquivo = Path.Combine(Server.MapPath("~/Arquivos"), nomeDoArquivo);
+                        documento.Arquivo.SaveAs(caminhoDoArquivo);
+                        documento.ArquivoNome = nomeDoArquivo;
                     }
                     ViewBag.Mensagem = "Cadastro efetuado com sucesso.";
                     bancoDeDados.Documento.Add(documento);
@@ -50,7 +50,7 @@ namespace CadastroDocumentos.Controllers
             return View(documento);
         }
 
-        public ActionResult AcessarArquivo(int? id)
+        public ActionResult AcessarArquivoDoDocumento(int? id)
         {
             if (id == null)
             {
@@ -65,12 +65,11 @@ namespace CadastroDocumentos.Controllers
         }
         public ActionResult VerificarSeOCodigoDoDocumentoJaExiste(int codigo)
         {
-            Documento documento = bancoDeDados.Documento.Find(codigo);
-            if (documento == null) 
+            foreach (Documento documento in bancoDeDados.Documento)
             {
-                return Content("true");
+                if (documento.Codigo == codigo) return Content("false");
             }
-            else return Content("false");
+            return Content("true");
         }
     }
 }

@@ -16,7 +16,7 @@ namespace CadastroDocumentos
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Documento", action = "Listar", id = UrlParameter.Optional }
+                defaults: new { controller = "Documento", action = "ListarDocumentosCadastrados", id = UrlParameter.Optional }
             );
         }
     }

@@ -206,9 +206,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Documento\Cadastrar.cshtml" />
-    <Content Include="Views\Documento\Listar.cshtml" />
-    <Content Include="Views\Documento\AcessarArquivo.cshtml" />
+    <Content Include="Views\Documento\CadastrarNovoDocumento.cshtml" />
+    <Content Include="Views\Documento\ListarDocumentosCadastrados.cshtml" />
+    <Content Include="Views\Documento\AcessarArquivoDoDocumento.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
