@@ -1,9 +1,11 @@
 ﻿using CadastroDocumentos.Models;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace CadastroDocumentos.Controllers
@@ -17,8 +19,32 @@ namespace CadastroDocumentos.Controllers
             return View(bancoDeDados.Documento.ToList().OrderBy(x => x.Titulo));
         }
 
+        public JsonResult SelecionarPorProcesso(int id)
+        {
+            var categorias = Categorias.Where(x => x.Value == id).OrderBy(x => x.Key)
+                .Select(x => new {categoria=x.Key,id = x.Key})
+                .ToList();
+
+            return Json(categorias, JsonRequestBehavior.AllowGet);
+        }
+
+        readonly IDictionary<int,string> Processos = new Dictionary<int, string>()
+        {
+            {1,"Processo 1"},
+            {2, "Processo 2"},
+            {3,"Processo 3"}
+        };
+        readonly IDictionary<string, int> Categorias = new Dictionary<string, int>()
+        {
+            {"Categoria A", 1},
+            {"Categoria B", 1},
+            {"Categoria C", 2},
+            {"Categoria D", 3}
+        };
         public ActionResult CadastrarNovoDocumento()
         {
+            ViewBag.Processos = Processos;
+
             return View();
         }
 
@@ -26,11 +52,13 @@ namespace CadastroDocumentos.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CadastrarNovoDocumento(Documento documento)
         {
+            ViewBag.Processos = Processos;
+
             if (ModelState.IsValid)
             {
-                try 
+                try
                 {
-                    string nomeDoArquivo = "";
+                    var nomeDoArquivo = "";
                     if (documento.Arquivo.ContentLength > 0)
                     {
                         nomeDoArquivo = Path.GetFileName(documento.Arquivo.FileName);
@@ -65,7 +93,7 @@ namespace CadastroDocumentos.Controllers
         }
         public ActionResult VerificarSeOCodigoDoDocumentoJaExiste(int codigo)
         {
-            foreach (Documento documento in bancoDeDados.Documento)
+            foreach (var documento in bancoDeDados.Documento)
             {
                 if (documento.Codigo == codigo) return Content("false");
             }
